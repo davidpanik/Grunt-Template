@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+	<head>
+		<title></title>
+
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+
+		<!-- build:css ./styles/main.min.css -->
+		<link rel="stylesheet" href="styles/main.css">
+		<!-- /build -->
+	</head>
+
+	<body>
+		<!-- build:include includes/header.html -->Header will go here<!-- /build -->
+
+		<p>Hello world</p>
+
+		<!-- build:handlebars includes/test.html  -->
+			{
+				"name": "Hello world",
+				"intro": {
+					"alpha": 123,
+					"beta":  456
+				},
+				"people": [
+					{ "first": "Bob"   , "last": "Smith" },
+					{ "first": "Sue"   , "last": "Brown" },
+					{ "first": "Joe"   , "last": "White" },
+					{ "first": "Alice" , "last": "Clark" }
+				]
+			}
+		<!-- /build -->
+
+		<!-- build:include includes/footer.html -->Footer will go here<!-- /build -->
+
+		<!-- build:include includes/scripts.html -->Scripts will go here<!-- /build -->
+	</body>
+</html>

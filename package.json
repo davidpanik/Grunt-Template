@@ -1,0 +1,25 @@
+{
+	"name": "grunt-base-template",
+	"version": "0.1.0",
+	"devDependencies": {
+		"grunt":                    "~0.4.4",
+		"grunt-contrib-copy":       "latest",
+		"grunt-contrib-clean":      "latest",
+		"grunt-contrib-jshint":     "latest",
+		"jshint-stylish":           "latest",
+		"grunt-contrib-uglify":     "latest",
+		"grunt-contrib-concat":     "latest",
+		"grunt-contrib-less":       "latest",
+		"grunt-sass":               "latest",
+		"grunt-contrib-cssmin":     "latest",
+		"grunt-contrib-imagemin":   "latest",
+		"grunt-contrib-connect":    "latest",
+		"grunt-contrib-watch":      "latest",
+		"grunt-processhtml":        "latest",
+		"grunt-newer":              "latest",
+		"load-grunt-config":        "latest",
+		"time-grunt":               "latest",
+		"grunt-beep":               "latest",
+		"handlebars":               "latest"
+	}
+}

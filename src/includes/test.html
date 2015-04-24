@@ -1,0 +1,15 @@
+<h1>{{name}}</h1>
+<h2>{{intro.alpha}}</h2>
+
+{{! This comment will not be in the output }}
+<!-- This comment will be in the output -->
+
+{{#if people}}
+	<ul>
+		{{#each people}}
+			<li>{{first}} {{last}}</li>
+		{{/each}}
+	</ul>
+{{else}}
+	<p>No people available</p>
+{{/if}}
