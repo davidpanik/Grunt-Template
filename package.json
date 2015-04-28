@@ -19,7 +19,6 @@
 		"grunt-newer":              "latest",
 		"load-grunt-config":        "latest",
 		"time-grunt":               "latest",
-		"grunt-beep":               "latest",
 		"handlebars":               "latest"
 	}
 }

@@ -2,7 +2,7 @@
 
 // 'newer' plugin is used to only update files with a newer timestamp (during development)
 
-// Two beeps = A task has succesfully completed
+// Three beeps = A task has succesfully completed
 // One beep = Something has failed
 
 
@@ -195,7 +195,7 @@ module.exports = function(grunt) {
 		watch: {
 			less: {
 				files: ['src/styles/**/*.less'],
-				tasks: ['less', 'beep:error:*'],
+				tasks: ['less', 'beepOnError'],
 				options: {
 					livereload: true,
 					nospawn: true
@@ -204,7 +204,7 @@ module.exports = function(grunt) {
 
 			sass: {
 				files: ['src/styles/**/*.{scss,sass}'],
-				tasks: ['sass', 'beep:error:*'],
+				tasks: ['sass', 'beepOnError'],
 				options: {
 					livereload: true,
 					nospawn: true
@@ -213,7 +213,7 @@ module.exports = function(grunt) {
 
 			scripts: {
 				files: 'src/scripts/**/*.js',
-				tasks: ['newer:jshint', 'beep:error:*', 'newer:copy:scripts'], // Only copy files that have changed
+				tasks: ['newer:jshint', 'beepOnError', 'newer:copy:scripts'], // Only copy files that have changed
 				options: {
 					livereload: true,
 					nospawn: true
@@ -222,7 +222,7 @@ module.exports = function(grunt) {
 
 			html: {
 				files: ['src/**/*.html', '!src/includes/**/*.html'],
-				tasks: ['newer:processhtml:develop'],
+				tasks: ['newer:processhtml:develop', 'beepOnError'],
 				options: {
 					livereload: true,
 					nospawn: true
@@ -231,7 +231,7 @@ module.exports = function(grunt) {
 
 			includes: {
 				files: 'src/includes/**/*.html',
-				tasks: ['processhtml:develop'],
+				tasks: ['processhtml:develop', 'beepOnError'],
 				options: {
 					livereload: true,
 					nospawn: true
@@ -240,7 +240,7 @@ module.exports = function(grunt) {
 
 			images: {
 				files: 'src/images/**/*',
-				tasks: ['newer:copy:images'],
+				tasks: ['newer:copy:images', 'beepOnError'],
 				options: {
 					livereload: true,
 					nospawn: true
@@ -274,11 +274,47 @@ module.exports = function(grunt) {
 		grunt.log.writeln(serverMessage['green']);
 	});
 
+	function beep() {
+		grunt.log.write('\x07').write('♪');
+	}
 
+	// Give an error message and beep once
+	function error() {
+		var errorMessage = 'An error or warning occured.';
+		grunt.log.writeln(errorMessage['red']);
+
+		beep();
+	}
+
+	// Give a success message and beep three times
+	function success() {
+		var successMessage = 'Task completed without errors or warnings!';
+		grunt.log.writeln(successMessage['green']);
+
+		beep();
+		beep();
+		beep();
+	}
+
+	// Check for errors during watch and beep if any are found
+	grunt.registerTask('beepOnError', 'Gives a beep if either an error or warning has been detected', function() {
+		if (grunt.fail.forever_errorcount || grunt.fail.forever_warncount) {
+			error();
+		}
+	});
+
+	// Check for errors during tasks and beep three times if none are found
+	grunt.registerTask('beepOnSuccess', 'Gives three beeps if no error or warning has been detected', function() {
+		if (!grunt.fail.errorcount && !grunt.fail.warncount && !grunt.fail.forever_errorcount && !grunt.fail.forever_warncount) {
+			success();
+		} else {
+			error();
+		}
+	});
 
 	// 'develop' task for active site development
-	grunt.registerTask('develop', ['jshint', 'clean:all', 'copy:develop', 'less', 'sass', 'processhtml:develop', 'connect', 'getip', 'beep:error:*', 'beep:**', 'watch']);
+	grunt.registerTask('develop', ['jshint', 'clean:all', 'copy:develop', 'less', 'sass', 'processhtml:develop', 'connect', 'getip', 'beepOnError', 'beepOnSuccess', 'watch']);
 
 	// 'build' task for creating a clean, optimised set of files for distribution
-	grunt.registerTask('build',   ['jshint', 'clean:all', 'copy:build', 'uglify', 'concat', 'less', 'sass', 'cssmin', 'clean:styles', 'imagemin', 'processhtml:develop', 'processhtml:build', 'beep:error:*', 'beep:**']);
+	grunt.registerTask('build',   ['jshint', 'clean:all', 'copy:build', 'uglify', 'concat', 'less', 'sass', 'cssmin', 'clean:styles', 'imagemin', 'processhtml:develop', 'processhtml:build', 'beepOnError', 'beepOnSuccess']);
 };
