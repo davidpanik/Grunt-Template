@@ -1,3 +1,11 @@
+// For styling you can use plain CSS, SASS or LESS
+
+// 'newer' plugin is used to only update files with a newer timestamp (during development)
+
+// Three beeps = A task has succesfully completed
+// One beep = Something has failed
+
+
 module.exports = function(grunt) {
 	require('load-grunt-config')(grunt); // Save us having to do grunt.loadNpmTasks() for every plugin we use
 	require('time-grunt')(grunt); // Get timings of how long each task took (more useful for 'build' than 'develop')
@@ -288,15 +296,15 @@ module.exports = function(grunt) {
 		beep();
 	}
 
-	// Check for errors during watch and beep if any are found
 	grunt.registerTask('beepOnError', 'Gives a beep if either an error or warning has been detected', function() {
 		if (grunt.fail.forever_errorcount || grunt.fail.forever_warncount) {
 			error();
 		}
 	});
 
-	// Check for errors during tasks and beep three times if none are found
 	grunt.registerTask('beepOnSuccess', 'Gives three beeps if no error or warning has been detected', function() {
+		grunt.option('force', true);
+
 		if (!grunt.fail.errorcount && !grunt.fail.warncount && !grunt.fail.forever_errorcount && !grunt.fail.forever_warncount) {
 			success();
 		} else {
@@ -304,8 +312,12 @@ module.exports = function(grunt) {
 		}
 	});
 
+	grunt.registerTask('turnForceOn', 'Forces processing to continue after an error/warning', function() {
+		grunt.option('force', true);
+	});
+
 	// 'develop' task for active site development
-	grunt.registerTask('develop', ['jshint', 'clean:all', 'copy:develop', 'less', 'sass', 'processhtml:develop', 'connect', 'getip', 'beepOnError', 'beepOnSuccess', 'watch']);
+	grunt.registerTask('develop', ['jshint', 'clean:all', 'copy:develop', 'less', 'sass', 'processhtml:develop', 'connect', 'getip', 'beepOnError', 'beepOnSuccess', 'turnForceOn', 'watch']);
 
 	// 'build' task for creating a clean, optimised set of files for distribution
 	grunt.registerTask('build',   ['jshint', 'clean:all', 'copy:build', 'uglify', 'concat', 'less', 'sass', 'cssmin', 'clean:styles', 'imagemin', 'processhtml:develop', 'processhtml:build', 'beepOnError', 'beepOnSuccess']);
