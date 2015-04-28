@@ -97,13 +97,8 @@ module.exports = function (processor) {
       blockLine = blockLine.replace(/(\r\n|\n|\r)/gm, '\n');
       content = content.replace(/(\r\n|\n|\r)/gm, '\n');
 
-
       // Add indentation and remove any last new line
       fileContent = block.indent + fileContent.replace(/(\r\n|\n)$/, '');
-
-      while ((i = content.indexOf(blockLine)) !== -1) {
-        content = content.substring(0, i) + fileContent + content.substring(i + l);
-      }
 
       content = content.replace(blockLine, fileContent);
 
