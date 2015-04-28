@@ -1,11 +1,3 @@
-// For styling you can use plain CSS, SASS or LESS
-
-// 'newer' plugin is used to only update files with a newer timestamp (during development)
-
-// Three beeps = A task has succesfully completed
-// One beep = Something has failed
-
-
 module.exports = function(grunt) {
 	require('load-grunt-config')(grunt); // Save us having to do grunt.loadNpmTasks() for every plugin we use
 	require('time-grunt')(grunt); // Get timings of how long each task took (more useful for 'build' than 'develop')

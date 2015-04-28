@@ -89,6 +89,15 @@ The "build" task will:
  * Optimise everything in the /images folder
  * Compile any HTML includes/templates
 
+The "newer" plugin is used to ensure only necessary files are updated (during development).
+
+
+Beeps
+-----
+
+If an error (or warning) occurs then you will hear a single beep.
+If a full task (e.g. build) completes without any errors (or warnings) then you will hear three beeps.
+
 
 Includes
 --------
