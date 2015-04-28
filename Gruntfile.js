@@ -11,6 +11,7 @@ module.exports = function(grunt) {
 	require('time-grunt')(grunt); // Get timings of how long each task took (more useful for 'build' than 'develop')
 
 	var port = 4000;
+	var audioAlert = 'beep'; // Options - beep, wav, silent
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -251,14 +252,14 @@ module.exports = function(grunt) {
 
 	// Detect what IP address the local webserver is running
 	grunt.registerTask('getip', 'Tells you the ip address your server is running on.', function() {
-		var os = require("os");
+		var os = require('os');
 		var ifaces = os.networkInterfaces();
-		var ip = "";
+		var ip = '';
 		var alias = 0;
 
 		function checker(details) {
-			if (details.family == "IPv4") {
-				if (dev == "Local Area Connection") ip = details.address;
+			if (details.family == 'IPv4') {
+				if (dev == 'Local Area Connection') ip = details.address;
 
 				++alias;
 			}
@@ -278,12 +279,21 @@ module.exports = function(grunt) {
 		grunt.log.write('\x07').write('♪');
 	}
 
+	function playWav(file) {
+		require('child_process').exec('sounder.exe ' + file);
+	}
+
 	// Give an error message and beep once
 	function error() {
 		var errorMessage = 'An error or warning occured.';
 		grunt.log.writeln(errorMessage['red']);
 
-		beep();
+		if (audioAlert === 'beep') {
+			beep();
+		}
+		else if (audioAlert === 'wav') {
+			playWav('error.wav');
+		}
 	}
 
 	// Give a success message and beep three times
@@ -291,9 +301,14 @@ module.exports = function(grunt) {
 		var successMessage = 'Task completed without errors or warnings!';
 		grunt.log.writeln(successMessage['green']);
 
-		beep();
-		beep();
-		beep();
+		if (audioAlert === 'beep') {
+			beep();
+			beep();
+			beep();
+		}
+		else if (audioAlert === 'wav') {
+			playWav('success.wav');
+		}
 	}
 
 	grunt.registerTask('beepOnError', 'Gives a beep if either an error or warning has been detected', function() {

@@ -92,11 +92,13 @@ The "build" task will:
 The "newer" plugin is used to ensure only necessary files are updated (during development).
 
 
-Beeps
------
+Beeps and sounds
+----------------
 
-If an error (or warning) occurs then you will hear a single beep.
-If a full task (e.g. build) completes without any errors (or warnings) then you will hear three beeps.
+If an error (or warning) occurs then you will hear the error sound (default is a single beep).
+If a full task (e.g. build) completes without any errors (or warnings) then you will hear success sound (default is three beeps).
+
+The error/success sounds can be turned off, or changed to play .wav files (Windows only) by changing the value of audioAlert in Gruntfile.js
 
 
 Includes
