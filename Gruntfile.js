@@ -1,17 +1,10 @@
-// For styling you can use plain CSS, SASS or LESS
-
-// 'newer' plugin is used to only update files with a newer timestamp (during development)
-
-// Three beeps = A task has succesfully completed
-// One beep = Something has failed
-
+var port = 4000; // Port to run local server on
+var audioAlert = 'wav'; // Options - beep, wav, silent
 
 module.exports = function(grunt) {
 	require('load-grunt-config')(grunt); // Save us having to do grunt.loadNpmTasks() for every plugin we use
 	require('time-grunt')(grunt); // Get timings of how long each task took (more useful for 'build' than 'develop')
-
-	var port = 4000;
-	var audioAlert = 'beep'; // Options - beep, wav, silent
+	require('./custom-tasks.js')(grunt, port, audioAlert); // Import our custom Grunt tasks
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -248,87 +241,6 @@ module.exports = function(grunt) {
 				}
 			}
 		}
-	});
-
-	// Detect what IP address the local webserver is running
-	grunt.registerTask('getip', 'Tells you the ip address your server is running on.', function() {
-		var os = require('os');
-		var ifaces = os.networkInterfaces();
-		var ip = '';
-		var alias = 0;
-
-		function checker(details) {
-			if (details.family == 'IPv4') {
-				if (dev == 'Local Area Connection') ip = details.address;
-
-				++alias;
-			}
-		}
-
-		for (var dev in ifaces) {
-			ifaces[dev].forEach(checker);
-		}
-
-		var serverMessage = 'Your server is running on: http://' + ip + ':' + port;
-
-		grunt.log.writeln('');
-		grunt.log.writeln(serverMessage['green']);
-	});
-
-	function beep() {
-		grunt.log.write('\x07').write('♪');
-	}
-
-	function playWav(file) {
-		require('child_process').exec('sounder.exe ' + file);
-	}
-
-	// Give an error message and beep once
-	function error() {
-		var errorMessage = 'An error or warning occured.';
-		grunt.log.writeln(errorMessage['red']);
-
-		if (audioAlert === 'beep') {
-			beep();
-		}
-		else if (audioAlert === 'wav') {
-			playWav('error.wav');
-		}
-	}
-
-	// Give a success message and beep three times
-	function success() {
-		var successMessage = 'Task completed without errors or warnings!';
-		grunt.log.writeln(successMessage['green']);
-
-		if (audioAlert === 'beep') {
-			beep();
-			beep();
-			beep();
-		}
-		else if (audioAlert === 'wav') {
-			playWav('success.wav');
-		}
-	}
-
-	grunt.registerTask('beepOnError', 'Gives a beep if either an error or warning has been detected', function() {
-		if (grunt.fail.forever_errorcount || grunt.fail.forever_warncount) {
-			error();
-		}
-	});
-
-	grunt.registerTask('beepOnSuccess', 'Gives three beeps if no error or warning has been detected', function() {
-		grunt.option('force', true);
-
-		if (!grunt.fail.errorcount && !grunt.fail.warncount && !grunt.fail.forever_errorcount && !grunt.fail.forever_warncount) {
-			success();
-		} else {
-			error();
-		}
-	});
-
-	grunt.registerTask('turnForceOn', 'Forces processing to continue after an error/warning', function() {
-		grunt.option('force', true);
 	});
 
 	// 'develop' task for active site development

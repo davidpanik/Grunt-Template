@@ -149,6 +149,7 @@ Files overview
 \install.bat                          - Helper batch file for runnning "npm install"
 \package.json                         - Specifies which Grunt packages are required
 \Gruntfile.js                         - Specifies the actual Grunt functionality
+\custom-tasks.js                      - Custom Grunt tasks (could in theory be made in plugins)
 \handlebars-blocktype.js              - Additional code for handling of Handlebars templates
 \src\fonts                            - Placeholder for putting webfonts
 \src\images                           - Any images files you want to build optimised during build should go here
