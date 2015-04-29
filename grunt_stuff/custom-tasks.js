@@ -29,7 +29,8 @@ module.exports = function(grunt, port, audioAlert) {
 	}
 
 	function playWav(file) {
-		require('child_process').exec('sounder.exe ' + file);
+		// http://www.elifulkerson.com/projects/commandline-wav-player.php
+		require('child_process').exec('sounder.exe ' + file, { cwd: process.cwd() + '\\grunt_stuff'});
 	}
 
 	// Give an error message and beep once

@@ -149,8 +149,13 @@ Files overview
 \install.bat                          - Helper batch file for runnning "npm install"
 \package.json                         - Specifies which Grunt packages are required
 \Gruntfile.js                         - Specifies the actual Grunt functionality
-\custom-tasks.js                      - Custom Grunt tasks (could in theory be made in plugins)
-\handlebars-blocktype.js              - Additional code for handling of Handlebars templates
+
+\grunt_stuff\custom-tasks.js          - Custom Grunt tasks (could in theory be made in plugins)
+\grunt_stuff\handlebars-blocktype.js  - Additional code for handling of Handlebars templates
+\grunt_stuff\sounder.exe              - Command line application for playing wav files
+\grunt_stuff\success.wav              - Sound file for success audio alert
+\grunt_stuff\error.wav                - Sound file for error audio alert
+
 \src\fonts                            - Placeholder for putting webfonts
 \src\images                           - Any images files you want to build optimised during build should go here
 \src\includes                         - Any includes/templates should go here, this folder should never appear in build

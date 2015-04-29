@@ -4,7 +4,7 @@ var audioAlert = 'wav'; // Options - beep, wav, silent
 module.exports = function(grunt) {
 	require('load-grunt-config')(grunt); // Save us having to do grunt.loadNpmTasks() for every plugin we use
 	require('time-grunt')(grunt); // Get timings of how long each task took (more useful for 'build' than 'develop')
-	require('./custom-tasks.js')(grunt, port, audioAlert); // Import our custom Grunt tasks
+	require('./grunt_stuff/custom-tasks.js')(grunt, port, audioAlert); // Import our custom Grunt tasks
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -145,7 +145,7 @@ module.exports = function(grunt) {
 		processhtml: {
 			options: {
         		recursive: true,
-        		customBlockTypes: ['handlebars-blocktype.js']
+        		customBlockTypes: ['./grunt_stuff/handlebars-blocktype.js']
 			},
 			develop: {
 				files: [{
