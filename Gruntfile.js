@@ -92,6 +92,9 @@ module.exports = function(grunt) {
 		// Automatically compile LESS into CSS
 		less: {
 			options: {},
+			develop: {
+				sourceMap: true
+			},
 			all: {
 				files: [{
 					expand: true,
@@ -106,6 +109,9 @@ module.exports = function(grunt) {
 		// Automatically compile SASS into CSS
 		sass: {
 			options: {},
+			develop: {
+				sourceMap: true
+			},
 			all: {
 				files: [{
 					expand: true,
