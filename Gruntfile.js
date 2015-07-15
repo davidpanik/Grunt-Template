@@ -93,9 +93,18 @@ module.exports = function(grunt) {
 		less: {
 			options: {},
 			develop: {
-				sourceMap: true
+				options: {
+					sourceMap: true
+				},
+				files: [{
+					expand: true,
+					cwd: 'src/styles',
+					src: ['**/*.less'],
+					dest: 'dist/styles',
+					ext: '.css'
+				}]
 			},
-			all: {
+			build: {
 				files: [{
 					expand: true,
 					cwd: 'src/styles',
@@ -110,9 +119,18 @@ module.exports = function(grunt) {
 		sass: {
 			options: {},
 			develop: {
-				sourceMap: true
+				options: {
+					sourceMap: true
+				},
+				files: [{
+					expand: true,
+					cwd: 'src/styles',
+					src: ['**/*.{scss,sass}'],
+					dest: 'dist/styles',
+					ext: '.css'
+				}]
 			},
-			all: {
+			build: {
 				files: [{
 					expand: true,
 					cwd: 'src/styles',
@@ -195,7 +213,7 @@ module.exports = function(grunt) {
 		watch: {
 			less: {
 				files: ['src/styles/**/*.less'],
-				tasks: ['less', 'beepOnError'],
+				tasks: ['less:develop', 'beepOnError'],
 				options: {
 					livereload: true,
 					nospawn: true
@@ -204,7 +222,7 @@ module.exports = function(grunt) {
 
 			sass: {
 				files: ['src/styles/**/*.{scss,sass}'],
-				tasks: ['sass', 'beepOnError'],
+				tasks: ['sass:develop', 'beepOnError'],
 				options: {
 					livereload: true,
 					nospawn: true
@@ -250,8 +268,8 @@ module.exports = function(grunt) {
 	});
 
 	// 'develop' task for active site development
-	grunt.registerTask('develop', ['jshint', 'clean:all', 'copy:develop', 'less', 'sass', 'processhtml:develop', 'connect', 'getip', 'beepOnError', 'beepOnSuccess', 'turnForceOn', 'watch']);
+	grunt.registerTask('develop', ['jshint', 'clean:all', 'copy:develop', 'less:develop', 'sass:develop', 'processhtml:develop', 'connect', 'getip', 'beepOnError', 'beepOnSuccess', 'turnForceOn', 'watch']);
 
 	// 'build' task for creating a clean, optimised set of files for distribution
-	grunt.registerTask('build',   ['jshint', 'clean:all', 'copy:build', 'uglify', 'concat', 'less', 'sass', 'cssmin', 'clean:styles', 'imagemin', 'processhtml:develop', 'processhtml:build', 'beepOnError', 'beepOnSuccess']);
+	grunt.registerTask('build',   ['jshint', 'clean:all', 'copy:build', 'uglify', 'concat', 'less:build', 'sass:build', 'cssmin', 'clean:styles', 'imagemin', 'processhtml:develop', 'processhtml:build', 'beepOnError', 'beepOnSuccess']);
 };
