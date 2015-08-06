@@ -14,10 +14,12 @@
 	</head>
 
 	<body>
+		<!-- Example of including another HTML file -->
 		<!-- build:include includes/header.html -->Header will go here<!-- /build -->
 
 		<p>Hello world</p>
 
+		<!-- Example of including another HTML file and passing inline JSON data to be parsed by Handlebars -->
 		<!-- build:handlebars includes/test.html  -->
 			{
 				"name": "Hello world",
@@ -32,6 +34,11 @@
 					{ "first": "Alice" , "last": "Clark" }
 				]
 			}
+		<!-- /build -->
+
+		<!-- Example of including another HTML file and passing a JSON file to be parsed by Handlebars -->
+		<!-- build:handlebars includes/test.html  -->
+			/data/test.json
 		<!-- /build -->
 
 		<!-- build:include includes/footer.html -->Footer will go here<!-- /build -->
