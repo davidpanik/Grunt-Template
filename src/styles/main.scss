@@ -13,23 +13,23 @@
 // ====== MIXINS ===========================================================
 
 @mixin clear() {
-    &:before, &:after {
-        content: "\0020";
-        display: block;
-        height: 0;
-        overflow: hidden;
-    }
-    &:after {
-        clear: both;
-    }
+	&:before, &:after {
+		content: "\0020";
+		display: block;
+		height: 0;
+		overflow: hidden;
+	}
+	&:after {
+		clear: both;
+	}
 }
 
 @mixin transition($args...) {
-  -webkit-transition: $args;
-  -moz-transition: $args;
-  -ms-transition: $args;
-  -o-transition: $args;
-  transition: $args;
+	-webkit-transition: $args;
+	-moz-transition: $args;
+	-ms-transition: $args;
+	-o-transition: $args;
+	transition: $args;
 }
 
 
