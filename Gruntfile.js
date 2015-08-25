@@ -169,7 +169,7 @@ module.exports = function(grunt) {
 		processhtml: {
 			options: {
         		recursive: true,
-        		customBlockTypes: ['./grunt_stuff/handlebars-blocktype.js']
+        		customBlockTypes: ['./grunt_stuff/handlebars-blocktype.js', './grunt_stuff/css-js-blocktypes.js']
 			},
 			develop: {
 				files: [{
