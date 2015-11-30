@@ -20,7 +20,7 @@
 		<p>Hello world</p>
 
 		<!-- Example of including another HTML file and passing inline JSON data to be parsed by Handlebars -->
-		<!-- build:handlebars includes/test.html  -->
+		<!-- build:handlebars includes/test.html -->
 			{
 				"name": "Hello world",
 				"intro": {
@@ -39,6 +39,13 @@
 		<!-- Example of including another HTML file and passing a JSON file to be parsed by Handlebars -->
 		<!-- build:handlebars includes/test.html  -->
 			/data/test.json
+		<!-- /build -->
+
+		<!-- Example of the above with option to then override/extend the JSON inline -->
+		<!-- build:handlebars includes/test.html|/data/test.json  -->
+			{
+				"name": "CHECK THIS OUT!"
+			}
 		<!-- /build -->
 
 		<!-- build:include includes/footer.html -->Footer will go here<!-- /build -->

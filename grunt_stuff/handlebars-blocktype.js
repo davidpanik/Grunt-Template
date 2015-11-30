@@ -64,16 +64,32 @@ module.exports = function (processor) {
 	// This will allow to use this <!-- build:customBlock[:target] <value> --> syntax
 	processor.registerBlockType('handlebars', function (content, block, blockLine, blockContent, filepath) {
 		var base = this.options.includeBase || path.dirname(filepath);
-		var assetpath = path.join(base, block.asset);
+		var assets = block.asset.split('|');
+		var assetpath = path.join(base, assets[0]);
 		var l = blockLine.length;
 		var fileContent, i;
+
+		function merge(obj1, obj2){
+			var obj3 = {};
+			for (var attrname in obj1) { obj3[attrname] = obj1[attrname]; }
+			for (var attrname in obj2) { obj3[attrname] = obj2[attrname]; }
+
+			return obj3;
+		}
+
+		function readFile(url) {
+			var sourcePath = path.join(base, url);
+			var sourceFile = fs.readFileSync(sourcePath).toString();
+
+			return JSON.parse(sourceFile);
+		}
 
 		if (fs.existsSync(assetpath)) {
 			// Recursively process included files
 			if (this.options.recursive) {
-			fileContent = this.process(assetpath);
+				fileContent = this.process(assetpath);
 			} else {
-			fileContent = fs.readFileSync(assetpath).toString();
+				fileContent = fs.readFileSync(assetpath).toString();
 			}
 
 			console.log('Processing Handlebars template for ' + block.asset);
@@ -82,12 +98,16 @@ module.exports = function (processor) {
 			var template = handlebars.compile(fileContent);
 			var data = {};
 
+			if (assets.length > 1) {
+				for (var x = 1; x < assets.length - 1; x++) {
+					data = merge(data, readFile(assets[x]));
+				}
+			}
+
 			if (blockContent.indexOf('{') > -1) {// If JSON is supplied then use that
-				data = JSON.parse(blockContent);
+				data = merge(data, JSON.parse(blockContent));
 			} else { // Otherwise assume it's a filepath and load that
-				var sourcePath = path.join(base, blockContent.trim());
-				var sourceFile = fs.readFileSync(sourcePath).toString();
-				data = JSON.parse(sourceFile);
+				data = merge(data, readFile(blockContent.trim()));
 			}
 
 			fileContent = template(data);
