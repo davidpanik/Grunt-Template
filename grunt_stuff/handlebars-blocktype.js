@@ -69,7 +69,7 @@ module.exports = function (processor) {
 		var l = blockLine.length;
 		var fileContent, i;
 
-		function merge(obj1, obj2){
+		function merge(obj1, obj2) {
 			var obj3 = {};
 			for (var attrname in obj1) { obj3[attrname] = obj1[attrname]; }
 			for (var attrname in obj2) { obj3[attrname] = obj2[attrname]; }
@@ -99,7 +99,7 @@ module.exports = function (processor) {
 			var data = {};
 
 			if (assets.length > 1) {
-				for (var x = 1; x < assets.length - 1; x++) {
+				for (var x = 1; x < assets.length; x++) {
 					data = merge(data, readFile(assets[x]));
 				}
 			}
