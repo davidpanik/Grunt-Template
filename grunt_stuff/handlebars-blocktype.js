@@ -3,7 +3,7 @@
 var fs = require('fs');
 var path = require('path');
 var handlebars = require('handlebars');
-
+var grunt = require('grunt');
 
 
 // Register Handlebars helpers here...
@@ -92,7 +92,7 @@ module.exports = function (processor) {
 				fileContent = fs.readFileSync(assetpath).toString();
 			}
 
-			console.log('Processing Handlebars template for ' + block.asset);
+			grunt.log.writeln('Processing Handlebars template for ' + block.asset);
 
 			// Compile and replace Handlebars templates
 			var template = handlebars.compile(fileContent);
@@ -121,7 +121,7 @@ module.exports = function (processor) {
 
 			content = content.replace(blockLine, fileContent);
 		} else {
-			console.log('Couldn\'t find template file!');
+			grunt.log.writeln('Couldn\'t find template file!');
 		}
 
 		return content;
