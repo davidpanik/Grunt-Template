@@ -31,11 +31,16 @@ All development work should be carried out in the /src folder.
 To get live-reloading, SASS/LESS compiling and JSHinting - run the following from the command line at the root of the project:
 	grunt develop
 
+Or to use ES6 use:
+	grunt develop-es6
 
 Distribution
 ------------
 To package minified, optimised version of the app for distribution, run the following from the command line at the root of the project:
 	grunt build
+
+Or to use ES6 use:
+	grunt build-es6
 
 This will now update the /dist folder with a distribution/production version of the app.
 
