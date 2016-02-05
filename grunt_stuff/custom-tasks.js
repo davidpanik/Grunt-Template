@@ -7,8 +7,9 @@ module.exports = function(grunt, port, audioAlert) {
 		var alias = 0;
 
 		function checker(details) {
-			if (details.family == 'IPv4') {
-				if (dev == 'Local Area Connection') ip = details.address;
+			console.log(details);
+			if (details.family == 'IPv4' && !details.internal) {
+				ip = details.address;
 
 				++alias;
 			}
