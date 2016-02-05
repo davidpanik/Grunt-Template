@@ -301,6 +301,32 @@ module.exports = function(grunt) {
 		}
 	});
 
+	grunt.registerTask('defaultInstructions', function(){
+		grunt.log.writeln('');
+		grunt.log.writeln('============================================================'['yellow']);
+		grunt.log.writeln('');
+		grunt.log.writeln(' Please run one of the following commands:');
+		grunt.log.writeln('');
+
+		grunt.log.write('  grunt develop    '['green']);
+		grunt.log.writeln(' - Develop the app using EcmaScript 5');
+
+		grunt.log.write('  grunt develop-es6'['green']);
+		grunt.log.writeln(' - Develop the app using EcmaScript 6');
+
+		grunt.log.write('  grunt build      '['green']);
+		grunt.log.writeln(' - Build the app using EcmaScript 5');
+
+		grunt.log.write('  grunt build-es6  '['green']);
+		grunt.log.writeln(' - Build the app using EcmaScript 6');
+
+		grunt.log.writeln('');
+
+		grunt.log.writeln('============================================================'['yellow']);
+	});
+
+	grunt.registerTask('default',     ['defaultInstructions']);
+
 	// 'develop' task for active site development
 	grunt.registerTask('develop',     ['jshint:es5', 'clean:all', 'copy:develop',          'less:develop', 'sass:develop', 'processhtml:develop', 'connect', 'getip', 'beepOnError', 'beepOnSuccess', 'turnForceOn', 'switchwatch::less:sass:scriptses5:html:includes:images']);
 	grunt.registerTask('develop-es6', ['jshint:es6', 'clean:all', 'copy:develop', 'babel', 'less:develop', 'sass:develop', 'processhtml:develop', 'connect', 'getip', 'beepOnError', 'beepOnSuccess', 'turnForceOn', 'switchwatch::less:sass:scriptses6:html:includes:images']);
