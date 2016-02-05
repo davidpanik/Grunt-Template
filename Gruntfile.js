@@ -301,30 +301,6 @@ module.exports = function(grunt) {
 		}
 	});
 
-	grunt.registerTask('defaultInstructions', function(){
-		grunt.log.writeln('');
-		grunt.log.writeln('============================================================'['yellow']);
-		grunt.log.writeln('');
-		grunt.log.writeln(' Please run one of the following commands:');
-		grunt.log.writeln('');
-
-		grunt.log.write('  grunt develop    '['green']);
-		grunt.log.writeln(' - Develop the app using EcmaScript 5');
-
-		grunt.log.write('  grunt develop-es6'['green']);
-		grunt.log.writeln(' - Develop the app using EcmaScript 6');
-
-		grunt.log.write('  grunt build      '['green']);
-		grunt.log.writeln(' - Build the app using EcmaScript 5');
-
-		grunt.log.write('  grunt build-es6  '['green']);
-		grunt.log.writeln(' - Build the app using EcmaScript 6');
-
-		grunt.log.writeln('');
-
-		grunt.log.writeln('============================================================'['yellow']);
-	});
-
 	grunt.registerTask('default',     ['defaultInstructions']);
 
 	// 'develop' task for active site development

@@ -7,7 +7,6 @@ module.exports = function(grunt, port, audioAlert) {
 		var alias = 0;
 
 		function checker(details) {
-			console.log(details);
 			if (details.family == 'IPv4' && !details.internal) {
 				ip = details.address;
 
@@ -94,5 +93,29 @@ module.exports = function(grunt, port, audioAlert) {
 		});
 
 		grunt.task.run('watch');
+	});
+
+	grunt.registerTask('defaultInstructions', function() {
+		grunt.log.writeln('');
+		grunt.log.writeln('============================================================'['yellow']);
+		grunt.log.writeln('');
+		grunt.log.writeln(' Please run one of the following commands:');
+		grunt.log.writeln('');
+
+		grunt.log.write('  grunt develop    '['green']);
+		grunt.log.writeln(' - Develop the app using EcmaScript 5');
+
+		grunt.log.write('  grunt develop-es6'['green']);
+		grunt.log.writeln(' - Develop the app using EcmaScript 6');
+
+		grunt.log.write('  grunt build      '['green']);
+		grunt.log.writeln(' - Build the app using EcmaScript 5');
+
+		grunt.log.write('  grunt build-es6  '['green']);
+		grunt.log.writeln(' - Build the app using EcmaScript 6');
+
+		grunt.log.writeln('');
+
+		grunt.log.writeln('============================================================'['yellow']);
 	});
 };
