@@ -80,4 +80,18 @@ module.exports = function(grunt, port, audioAlert) {
 	grunt.registerTask('turnForceOn', 'Forces processing to continue after an error/warning', function() {
 		grunt.option('force', true);
 	});
+
+	// Run with: grunt switchwatch:target1:target2 to only watch those targets
+	grunt.registerTask('switchwatch', function() {
+		var targets = Array.prototype.slice.call(arguments, 0);
+
+		Object.keys(grunt.config('watch')).filter(function(target) {
+			return !(grunt.util._.indexOf(targets, target) !== -1);
+		}).forEach(function(target) {
+			grunt.log.writeln('Ignoring ' + target + '...');
+			grunt.config(['watch', target], {files: []});
+		});
+
+		grunt.task.run('watch');
+	});
 };

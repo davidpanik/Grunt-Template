@@ -17,6 +17,8 @@
 		"grunt-contrib-watch":      "latest",
 		"grunt-processhtml":        "latest",
 		"grunt-newer":              "latest",
+		"grunt-babel":              "latest",
+		"babel-preset-es2015":      "latest",
 		"load-grunt-config":        "latest",
 		"time-grunt":               "latest",
 		"handlebars":               "latest"
