@@ -265,7 +265,7 @@ module.exports = function(grunt) {
 
 			scriptses6: {
 				files: 'src/scripts/**/*.js',
-				tasks: ['newer:jshint:es6', 'beepOnError'],
+				tasks: ['newer:jshint:es6', 'beepOnError', 'babel'],
 				options: {
 					livereload: true,
 					nospawn: true
