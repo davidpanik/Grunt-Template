@@ -75,7 +75,21 @@ module.exports = function(grunt) {
 			options: {},
 			build: {
 				files: {
-				  'dist/scripts/main.min.js': ['src/scripts/**/*.js', '!src/scripts/vendor/**/*.js']
+				  'dist/scripts/main.min.js': ['dist/scripts/main.js']
+				}
+			}
+		},
+
+		// Compile JS modules into a single file (but not on vendor files)
+		browserify: {
+			options: {
+				browserifyOptions: {
+					debug: true
+				}
+			},
+			all: {
+				files: {
+					'dist/scripts/main.js': ['src/scripts/**/*.js', '!src/scripts/vendor/**/*.js']
 				}
 			}
 		},
@@ -84,7 +98,7 @@ module.exports = function(grunt) {
 		concat: {
 			options: {},
 			build: {
-				src: ['src/scripts/vendor/jquery-1.11.1.min.js', 'src/scripts/vendor/**/*.js'],
+				src: ['src/scripts/vendor/jquery-1.12.4.min.js', 'src/scripts/vendor/**/*.js'],
 				dest: 'dist/scripts/vendor.min.js'
 			}
 		},
@@ -231,7 +245,7 @@ module.exports = function(grunt) {
 
 			scripts: {
 				files: 'src/scripts/**/*.js',
-				tasks: ['newer:jshint', 'beepOnError', 'newer:copy:scripts'], // Only copy files that have changed
+				tasks: ['newer:jshint', 'beepOnError', 'browserify'],
 				options: {
 					livereload: true,
 					nospawn: true
@@ -268,8 +282,8 @@ module.exports = function(grunt) {
 	});
 
 	// 'develop' task for active site development
-	grunt.registerTask('develop', ['jshint', 'clean:all', 'copy:develop', 'less:develop', 'sass:develop', 'processhtml:develop', 'connect', 'getip', 'beepOnError', 'beepOnSuccess', 'turnForceOn', 'watch']);
+	grunt.registerTask('develop', ['jshint', 'clean:all', 'copy:develop', 'browserify', 'less:develop', 'sass:develop', 'processhtml:develop', 'connect', 'getip', 'beepOnError', 'beepOnSuccess', 'turnForceOn', 'watch']);
 
 	// 'build' task for creating a clean, optimised set of files for distribution
-	grunt.registerTask('build',   ['jshint', 'clean:all', 'copy:build', 'uglify', 'concat', 'less:build', 'sass:build', 'cssmin', 'clean:styles', 'imagemin', 'processhtml:develop', 'processhtml:build', 'beepOnError', 'beepOnSuccess']);
+	grunt.registerTask('build',   ['jshint', 'clean:all', 'copy:build', 'browserify', 'uglify', 'concat', 'less:build', 'sass:build', 'cssmin', 'clean:styles', 'imagemin', 'processhtml:develop', 'processhtml:build', 'beepOnError', 'beepOnSuccess']);
 };
