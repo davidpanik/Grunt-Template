@@ -28,19 +28,15 @@ Development
 -----------
 All development work should be carried out in the /src folder.
 
-To get live-reloading, SASS/LESS compiling and JSHinting - run the following from the command line at the root of the project:
+To get live-reloading, SASS/LESS compiling, modules and JSHinting - run the following from the command line at the root of the project:
 	grunt develop
 
-Or to use ES6 use:
-	grunt develop-es6
 
 Distribution
 ------------
 To package minified, optimised version of the app for distribution, run the following from the command line at the root of the project:
 	grunt build
 
-Or to use ES6 use:
-	grunt build-es6
 
 This will now update the /dist folder with a distribution/production version of the app.
 
@@ -75,6 +71,7 @@ The "develop" task will:
  * Copy everything from /src except SASS and LESS files
  * Compile LESS and SASS to CSS
  * Compile any HTML includes/templates
+ * Compile any JS modules down into one file
  * Start a local webserver
  * Tell you the IP address of the local webserver
  * Start file-watching and live-reloading:
@@ -87,6 +84,7 @@ The "build" task will:
  * Reset the /dist folder
  * Copy everything from /src except SASS and LESS files, JavaScript files, images, include/template files
  * Compile LESS and SASS to CSS
+ * Compile any JS modules down into one file
  * Uglify any JS in the /js folder (but not in /js/vendors)
  * Concatenate any JS in the /js/vendors folder
  * Compile LESS and SASS to CSS
@@ -104,6 +102,21 @@ If an error (or warning) occurs then you will hear the error sound (default is a
 If a full task (e.g. build) completes without any errors (or warnings) then you will hear success sound (default is three beeps).
 
 The error/success sounds can be turned off, or changed to play .wav files (Windows only) by changing the value of audioAlert in Gruntfile.js
+
+
+Modules
+--------
+
+Thanks to Browserify you can write JavaScript CommonJS (Node-like) modules.
+
+To import a module in your JavaScript write:
+	var greet = require('./moduleName');
+	greet('world');
+
+Then in moduleName.js you can do
+	module.exports = function(name) {
+		alert('Hello ' + name);
+	};
 
 
 Includes
