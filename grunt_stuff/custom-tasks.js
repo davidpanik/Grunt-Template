@@ -81,20 +81,6 @@ module.exports = function(grunt, port, audioAlert) {
 		grunt.option('force', true);
 	});
 
-	// Run with: grunt switchwatch:target1:target2 to only watch those targets
-	grunt.registerTask('switchwatch', function() {
-		var targets = Array.prototype.slice.call(arguments, 0);
-
-		Object.keys(grunt.config('watch')).filter(function(target) {
-			return !(grunt.util._.indexOf(targets, target) !== -1);
-		}).forEach(function(target) {
-			grunt.log.writeln('Ignoring ' + target + '...');
-			grunt.config(['watch', target], {files: []});
-		});
-
-		grunt.task.run('watch');
-	});
-
 	grunt.registerTask('defaultInstructions', function() {
 		grunt.log.writeln('');
 		grunt.log.writeln('============================================================'['yellow']);
@@ -103,16 +89,10 @@ module.exports = function(grunt, port, audioAlert) {
 		grunt.log.writeln('');
 
 		grunt.log.write('  grunt develop    '['green']);
-		grunt.log.writeln(' - Develop the app using EcmaScript 5');
-
-		grunt.log.write('  grunt develop-es6'['green']);
-		grunt.log.writeln(' - Develop the app using EcmaScript 6');
+		grunt.log.writeln(' - Develop the app with live-reloading, etc');
 
 		grunt.log.write('  grunt build      '['green']);
-		grunt.log.writeln(' - Build the app using EcmaScript 5');
-
-		grunt.log.write('  grunt build-es6  '['green']);
-		grunt.log.writeln(' - Build the app using EcmaScript 6');
+		grunt.log.writeln(' - Build a release version of the app');
 
 		grunt.log.writeln('');
 

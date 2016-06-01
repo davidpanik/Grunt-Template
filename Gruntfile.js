@@ -65,34 +65,9 @@ module.exports = function(grunt) {
 		// Run JShint on all of JS files (but not on vendor files)
 		jshint: {
 			options: {
-				reporter: require('jshint-stylish'),
+				reporter: require('jshint-stylish')
 			},
-			es5: {
-				files: {
-					src: ['src/scripts/**/*.js', '!src/scripts/vendor/**/*.js']
-				}
-			},
-			es6: {
-				options: {
-					esversion: 6
-				},
-				files: {
-					src: ['src/scripts/**/*.js', '!src/scripts/vendor/**/*.js']
-				}
-			}
-		},
-
-		// Use Babel to compile ES6/2015 into ES5
-		babel: {
-			options: {
-				sourceMap: true,
-				presets: ['babel-preset-es2015']
-			},
-			all: {
-				files: {
-					'dist/scripts/main.js': 'src/scripts/main.js'
-				}
-			}
+			all: ['src/scripts/**/*.js', '!src/scripts/vendor/**/*.js']
 		},
 
 		// Uglify all of our JavaScript into one file (but not on vendor files)
@@ -254,18 +229,9 @@ module.exports = function(grunt) {
 				}
 			},
 
-			scriptses5: {
+			scripts: {
 				files: 'src/scripts/**/*.js',
-				tasks: ['newer:jshint:es5', 'beepOnError', 'newer:copy:scripts'], // Only copy files that have changed
-				options: {
-					livereload: true,
-					nospawn: true
-				}
-			},
-
-			scriptses6: {
-				files: 'src/scripts/**/*.js',
-				tasks: ['newer:jshint:es6', 'beepOnError', 'babel'],
+				tasks: ['newer:jshint', 'beepOnError', 'newer:copy:scripts'], // Only copy files that have changed
 				options: {
 					livereload: true,
 					nospawn: true
@@ -301,13 +267,9 @@ module.exports = function(grunt) {
 		}
 	});
 
-	grunt.registerTask('default',     ['defaultInstructions']);
-
 	// 'develop' task for active site development
-	grunt.registerTask('develop',     ['jshint:es5', 'clean:all', 'copy:develop',          'less:develop', 'sass:develop', 'processhtml:develop', 'connect', 'getip', 'beepOnError', 'beepOnSuccess', 'turnForceOn', 'switchwatch::less:sass:scriptses5:html:includes:images']);
-	grunt.registerTask('develop-es6', ['jshint:es6', 'clean:all', 'copy:develop', 'babel', 'less:develop', 'sass:develop', 'processhtml:develop', 'connect', 'getip', 'beepOnError', 'beepOnSuccess', 'turnForceOn', 'switchwatch::less:sass:scriptses6:html:includes:images']);
+	grunt.registerTask('develop', ['jshint', 'clean:all', 'copy:develop', 'less:develop', 'sass:develop', 'processhtml:develop', 'connect', 'getip', 'beepOnError', 'beepOnSuccess', 'turnForceOn', 'watch']);
 
 	// 'build' task for creating a clean, optimised set of files for distribution
-	grunt.registerTask('build',       ['jshint:es5', 'clean:all', 'copy:build', 'uglify', 'concat', 'less:build', 'sass:build', 'cssmin', 'clean:styles', 'imagemin', 'processhtml:develop', 'processhtml:build', 'beepOnError', 'beepOnSuccess']);
-	grunt.registerTask('build-es6',   ['jshint:es6', 'clean:all', 'copy:build', 'babel',            'less:build', 'sass:build', 'cssmin', 'clean:styles', 'imagemin', 'processhtml:develop', 'processhtml:build', 'beepOnError', 'beepOnSuccess']);
+	grunt.registerTask('build',   ['jshint', 'clean:all', 'copy:build', 'uglify', 'concat', 'less:build', 'sass:build', 'cssmin', 'clean:styles', 'imagemin', 'processhtml:develop', 'processhtml:build', 'beepOnError', 'beepOnSuccess']);
 };
