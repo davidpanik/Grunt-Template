@@ -1,4 +1,5 @@
 var port = 4000; // Port to run local server on
+var protocol = 'http'; // Protocol to run local server on
 var audioAlert = 'wav'; // Options - beep, wav, silent
 
 module.exports = function(grunt) {
@@ -209,12 +210,13 @@ module.exports = function(grunt) {
 				port: port,
 				base: 'dist/',
 				hostname: '*',
-				livereload: true
+				livereload: true,
+				protocol: protocol
 			},
 			livereload: {
 				options: {
 					open: {
-						target: 'http://localhost:' + port
+						target: protocol + '://localhost:' + port
 					},
 					base: [
 						'dist/'
