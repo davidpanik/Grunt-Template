@@ -3,8 +3,8 @@
 @import '_h5bp';
 @import '_meyer-reset';
 
-@import 'variables';
-@import 'fonts';
+@import '_variables';
+@import '_fonts';
 
 
 
@@ -49,6 +49,3 @@ a, a:link, a:visited, a:hover, a:active {
 
 }
 
-
-
-@import 'mobile';
