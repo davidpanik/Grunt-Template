@@ -1,40 +1,9 @@
-// ====== IMPORTS ===========================================================
+@import 'common/_meyer-reset';
+@import 'common/_h5bp';
+@import 'common/_fonts';
+@import 'common/_variables';
+@import 'common/_mixins';
 
-@import '_h5bp';
-@import '_meyer-reset';
-
-@import '_variables';
-@import '_fonts';
-
-
-
-
-
-// ====== MIXINS ===========================================================
-
-@mixin clear() {
-	&:before, &:after {
-		content: "\0020";
-		display: block;
-		height: 0;
-		overflow: hidden;
-	}
-	&:after {
-		clear: both;
-	}
-}
-
-@mixin transition($args...) {
-	-webkit-transition: $args;
-	-moz-transition: $args;
-	-ms-transition: $args;
-	-o-transition: $args;
-	transition: $args;
-}
-
-
-
-// ====== COMMON ===========================================================
 
 html,
 body {
@@ -45,7 +14,10 @@ body {
 
 }
 
-a, a:link, a:visited, a:hover, a:active {
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
 
 }
-
