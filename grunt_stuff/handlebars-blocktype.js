@@ -24,6 +24,22 @@ handlebars.registerHelper('if_not', function(value, test, options) {
 	}
 });
 
+handlebars.registerHelper('if_true', function(value, options) {
+	if (value) {
+		return options.fn(this);
+	} else {
+		return options.inverse(this);
+	}
+});
+
+handlebars.registerHelper('if_false', function(value, options) {
+	if (!value) {
+		return options.fn(this);
+	} else {
+		return options.inverse(this);
+	}
+});
+
 handlebars.registerHelper('if_lt', function(value, test, options) {
 	if (value < test) {
 		return options.fn(this);
